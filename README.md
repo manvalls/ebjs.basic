@@ -4,6 +4,8 @@
 
 No piece of software is ever completed, feel free to contribute and be humble
 
+Test this package online at http://manvalls.github.io/ebjs.basic
+
 This package provides ebjs definitions for:
 
 - [1\] Number
