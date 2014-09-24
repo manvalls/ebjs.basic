@@ -6,6 +6,13 @@
   "dependencies": {
     "ebjs": ""
   },
+  "devDependencies": {
+    "vz.test": "",
+    "ebjs.basic.test": ""
+  },
+  "scripts": {
+    "test": "node test"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/manvalls/ebjs.basic.git"
