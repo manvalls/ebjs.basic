@@ -7,6 +7,7 @@ gh-pages:
 	git checkout master
 	browserify test.js -o main.build.js
 	git checkout gh-pages
+	git add -A
 	git commit -m "Build"
 	git push origin gh-pages
 	
