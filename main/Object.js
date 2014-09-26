@@ -62,11 +62,11 @@ ebjs.define(Object,4,function packer(args,vars){
         while(vars.n-- > 0){
           if(vars.key == null){
             vars.key = this.unpack(String,this.goTo('unpack',unpacker,vars));
-            if(vars.key === ebjs.deferred) return;
+            if(vars.key === ebjs.deferred) return vars.n++;
           }
           
           ret = this.unpack(this.goTo('unpack',unpacker,vars));
-          if(ret === ebjs.deferred) return vars.n++;
+          if(ret === ebjs.deferred) return;
           vars.obj[vars.key] = ret;
           vars.key = null;
         }

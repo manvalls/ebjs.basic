@@ -40,7 +40,7 @@ ebjs.define(Array,5,function packer(args,vars){
         vars.add = false;
         
         ret = this.unpack(this.goTo('unpack',unpacker,vars));
-        if(ret === undefined){
+        if(ret === ebjs.deferred){
           vars.add = true;
           return;
         }
