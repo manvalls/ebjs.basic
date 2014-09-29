@@ -11,7 +11,7 @@
     "ebjs.basic.test": ""
   },
   "scripts": {
-    "test": "node test"
+    "test": "node --harmony test"
   },
   "repository": {
     "type": "git",
