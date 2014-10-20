@@ -70,43 +70,19 @@ if(Buffer){
   
 }
 
-ebjs.define(String,3,function packer(args,vars){
+ebjs.define(String,3,function*(buff,data){
   
-  switch(this.step){
-    case 'start':
-      vars.part = stringToPart(args[0] + '');
-      if(this.pack(Number,vars.part.length || vars.part.size || 0,this.goTo('pack',packer,vars)) === ebjs.deferred) return;
-      
-    case 'pack':
-      if(this.write(vars.part,this.goTo('end',packer,vars)) === ebjs.deferred) return;
-    
-    case 'end':
-      this.end();
-  }
+  var part = stringToPart(data + '');
   
-},function unpacker(args,vars){
-  var ret;
+  yield buff.pack(Number,part.length || part.size || 0);
+  yield buff.write(part);
   
-  switch(this.step){
-    
-    case 'start':
-      ret = this.unpack(Number,this.goTo('unpack',unpacker,vars));
-      if(ret === ebjs.deferred) return;
-      vars.size = ret;
-      
-    case 'unpack':
-      vars.size = vars.size || args[0];
-      
-      ret = this.read(vars.size,this.goTo('end',unpacker,vars));
-      if(ret === ebjs.deferred) return;
-      vars.bytes = ret;
-      
-    case 'end':
-      vars.bytes = vars.bytes || args[0];
-      
-      this.end(bytesToString(vars.bytes));
-    
-  }
+},function*(buff){
+  
+  var size = yield buff.unpack(Number),
+      bytes = yield buff.read(size);
+  
+  return bytesToString(bytes);
   
 });
 

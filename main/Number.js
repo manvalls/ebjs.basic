@@ -191,177 +191,69 @@ var ebjs = require('ebjs'),
   
 }
 
-ebjs.define(Number,1,function packer(args,vars){
-  var ret,num;
+ebjs.define(Number,1,function*(buff,data){
   
-  switch(this.step){
-    case 'start':
-      num = vars.num = args[0];
+  if(data == Infinity) return yield buff.write(Uint8ToBuffer(8));
+  if(isNaN(data)) return yield buff.write(Uint8ToBuffer(9));
+  
+  if(data == toUint32(data)){
+    
+    if(data == toUint16(data)){
       
-      if(num == Infinity){
-        ret = this.write(Uint8ToBuffer(8),this.goTo('end',packer,vars));
-        if(ret != ebjs.deferred) this.end();
-        return;
+      if(data == toUint8(data)){
+        if(data <= 245) return yield buff.write(Uint8ToBuffer(data + 10));
+        yield buff.write(Uint8ToBuffer(0));
+        return yield buff.write(Uint8ToBuffer(data));
       }
       
-      if(isNaN(num)){
-        ret = this.write(Uint8ToBuffer(9),this.goTo('end',packer,vars));
-        if(ret != ebjs.deferred) this.end();
-        return;
-      }
-      
-      if(num == toInt32(num)){
-        if(num == toUint32(num)){
-          if(num == toUint8(num)){
-            if(num <= 245){
-              ret = this.write(Uint8ToBuffer(num + 10),this.goTo('end',packer,vars));
-              if(ret != ebjs.deferred) this.end();
-              return;
-            }else{
-              vars.type = 'uint8';
-              ret = this.write(Uint8ToBuffer(0),this.goTo('pack',packer,vars));
-            }
-          }else if(num == toUint16(num)){
-            vars.type = 'uint16';
-            ret = this.write(Uint8ToBuffer(1),this.goTo('pack',packer,vars));
-          }else{
-            vars.type = 'uint32';
-            ret = this.write(Uint8ToBuffer(2),this.goTo('pack',packer,vars));
-          }
-        }else{
-          if(num == toInt8(num)){
-            vars.type = 'int8';
-            ret = this.write(Uint8ToBuffer(3),this.goTo('pack',packer,vars));
-          }else if(num == toInt16(num)){
-            vars.type = 'int16';
-            ret = this.write(Uint8ToBuffer(4),this.goTo('pack',packer,vars));
-          }else{
-            vars.type = 'int32';
-            ret = this.write(Uint8ToBuffer(5),this.goTo('pack',packer,vars));
-          }
-        }
-      }else{
-        if(num == toFloat32(num)){
-          vars.type = 'float32';
-          ret = this.write(Uint8ToBuffer(6),this.goTo('pack',packer,vars));
-        }else{
-          vars.type = 'float64';
-          ret = this.write(Uint8ToBuffer(7),this.goTo('pack',packer,vars));
-        }
-      }
-      
-      if(ret == ebjs.deferred) return;
-      
-    case 'pack':
-      
-      num = vars.num;
-      
-      switch(vars.type){
-        case 'uint8':
-          ret = this.write(Uint8ToBuffer(num),this.goTo('end',packer,vars));
-          break;
-        case 'uint16':
-          ret = this.write(Uint16ToBuffer(num),this.goTo('end',packer,vars));
-          break;
-        case 'uint32':
-          ret = this.write(Uint32ToBuffer(num),this.goTo('end',packer,vars));
-          break;
-        case 'int8':
-          ret = this.write(int8ToBuffer(num),this.goTo('end',packer,vars));
-          break;
-        case 'int16':
-          ret = this.write(int16ToBuffer(num),this.goTo('end',packer,vars));
-          break;
-        case 'int32':
-          ret = this.write(int32ToBuffer(num),this.goTo('end',packer,vars));
-          break;
-        case 'float32':
-          ret = this.write(float32ToBuffer(num),this.goTo('end',packer,vars));
-          break;
-        case 'float64':
-          ret = this.write(float64ToBuffer(num),this.goTo('end',packer,vars));
-          break;
-      }
-      
-      if(ret == ebjs.deferred) return;
-      
-    case 'end':
-      this.end();
+      yield buff.write(Uint8ToBuffer(1));
+      return yield buff.write(Uint16ToBuffer(data));
+    }
+    
+    yield buff.write(Uint8ToBuffer(2));
+    return yield buff.write(Uint32ToBuffer(data));
   }
   
-},function unpacker(args,vars){
-  var ret,tag,bytes;
-  
-  switch(this.step){
+  if(data == toInt32(data)){
     
-    case 'start':
-      ret = this.read(1,this.goTo('unpack',unpacker,vars));
-      if(ret == ebjs.deferred) return;
-      vars.tag = ret;
+    if(data == toInt16(data)){
       
-    case 'unpack':
-      tag = (vars.tag || args[0])[0];
-      
-      switch(tag){
-        case 0:
-          vars.type = 'uint8';
-          ret = this.read(1,this.goTo('end',unpacker,vars));
-          break;
-        case 1:
-          vars.type = 'uint16';
-          ret = this.read(2,this.goTo('end',unpacker,vars));
-          break;
-        case 2:
-          vars.type = 'uint32';
-          ret = this.read(4,this.goTo('end',unpacker,vars));
-          break;
-        
-        case 3:
-          vars.type = 'int8';
-          ret = this.read(1,this.goTo('end',unpacker,vars));
-          break;
-        case 4:
-          vars.type = 'int16';
-          ret = this.read(2,this.goTo('end',unpacker,vars));
-          break;
-        case 5:
-          vars.type = 'int32';
-          ret = this.read(4,this.goTo('end',unpacker,vars));
-          break;
-        
-        case 6:
-          vars.type = 'float32';
-          ret = this.read(4,this.goTo('end',unpacker,vars));
-          break;
-        case 7:
-          vars.type = 'float64';
-          ret = this.read(8,this.goTo('end',unpacker,vars));
-          break;
-          
-        case 8: return this.end(Infinity);
-        case 9: return this.end(NaN);
-        
-        default: return this.end(tag - 10);
+      if(data == toInt8(data)){
+        yield buff.write(Uint8ToBuffer(3));
+        return yield buff.write(int8ToBuffer(data));
       }
       
-      if(ret == ebjs.deferred) return;
-      
-      vars.bytes = ret;
-      
-    case 'end':
-      bytes = vars.bytes || args[0];
-      
-      switch(vars.type){
-        case 'uint8': return this.end(bytesToUint8(bytes));
-        case 'uint16': return this.end(bytesToUint16(bytes));
-        case 'uint32': return this.end(bytesToUint32(bytes));
-        case 'int8': return this.end(bytesToInt8(bytes));
-        case 'int16': return this.end(bytesToInt16(bytes));
-        case 'int32': return this.end(bytesToInt32(bytes));
-        case 'float32': return this.end(bytesToFloat32(bytes));
-        case 'float64': return this.end(bytesToFloat64(bytes));
-      }
-      
+      yield buff.write(Uint8ToBuffer(4));
+      return yield buff.write(int16ToBuffer(data));
+    }
+    
+    yield buff.write(Uint8ToBuffer(5));
+    return yield buff.write(int32ToBuffer(data));
+  }
+  
+  if(data == toFloat32(data)){
+    yield buff.write(Uint8ToBuffer(6));
+    return yield buff.write(float32ToBuffer(data));
+  }
+  
+  yield buff.write(Uint8ToBuffer(7));
+  return yield buff.write(float64ToBuffer(data));
+  
+},function*(buff){
+  var type = (yield buff.read(1))[0];
+  
+  switch(type){
+    case 0: return bytesToUint8(yield buff.read(1));
+    case 1: return bytesToUint16(yield buff.read(2));
+    case 2: return bytesToUint32(yield buff.read(4));
+    case 3: return bytesToInt8(yield buff.read(1));
+    case 4: return bytesToInt16(yield buff.read(2));
+    case 5: return bytesToInt32(yield buff.read(4));
+    case 6: return bytesToFloat32(yield buff.read(4));
+    case 7: return bytesToFloat64(yield buff.read(8));
+    case 8: return Infinity;
+    case 9: return NaN;
+    default: return type - 10;
   }
   
 });
