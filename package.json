@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "vz.test": "",
-    "ebjs.basic.test": ""
+    "vz.walk": ""
   },
   "scripts": {
     "test": "node --harmony test"
