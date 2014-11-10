@@ -1,5 +1,3 @@
-var walk = require('vz.walk');
-
 require('./main/Number.js');
 require('./main/Boolean.js');
 require('./main/String.js');
