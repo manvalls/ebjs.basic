@@ -8,7 +8,8 @@
   },
   "devDependencies": {
     "vz.test": "",
-    "vz.walk": ""
+    "vz.walk": "",
+    "utf8bts": ""
   },
   "scripts": {
     "test": "node --harmony test"
