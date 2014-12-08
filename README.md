@@ -12,8 +12,8 @@ This package provides ebjs definitions for:
 - [6\] null
 - [7\] undefined
 
-[travis-image]: https://travis-ci.org/manvalls/{{NAME}}.svg?branch=master
-[travis-url]: https://travis-ci.org/manvalls/{{NAME}}
+[travis-image]: https://travis-ci.org/manvalls/ebjs.basic.svg?branch=master
+[travis-url]: https://travis-ci.org/manvalls/ebjs.basic
 
 [es6-image]: http://img.shields.io/badge/es-6-green.svg
 [es6-url]: http://kangax.github.io/compat-table/es6/
