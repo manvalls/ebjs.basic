@@ -1,6 +1,6 @@
 {
   "name": "ebjs.basic",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Several basic definitions for ebjs",
   "main": "main.js",
   "dependencies": {
