@@ -1,4 +1,4 @@
-# ebjs basic [![Build Status][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![ES version][es6-image]][es6-url]
+# ebjs basic [![Build Status][travis-image]][travis-url] [![ES version][es6-image]][es6-url]
 
 Test this package online at http://manvalls.github.io/ebjs.basic
 
@@ -17,6 +17,3 @@ This package provides ebjs definitions for:
 
 [es6-image]: http://img.shields.io/badge/es-6-orange.svg
 [es6-url]: http://kangax.github.io/compat-table/es6/
-
-[npm-image]: https://img.shields.io/npm/dm/ebjs.basic.svg
-[npm-url]: https://npmjs.org/package/ebjs.basic
