@@ -6,9 +6,7 @@ When cloning this repository, put the folder inside another named "node_modules"
 
 No piece of software is ever completed, feel free to contribute and be humble.
 
-# ebjs basic
-
-[![Build Status via Travis CI](https://travis-ci.org/manvalls/ebjs.basic.svg?branch=master)](https://travis-ci.org/manvalls/ebjs.basic)
+# ebjs basic [![Build Status via Travis CI](https://travis-ci.org/manvalls/ebjs.basic.svg?branch=master)](https://travis-ci.org/manvalls/ebjs.basic)
 
 Test this package online at http://manvalls.github.io/ebjs.basic
 
