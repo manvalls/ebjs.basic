@@ -4,12 +4,13 @@
   "description": "Several basic definitions for ebjs",
   "main": "main.js",
   "dependencies": {
-    "ebjs": ""
+    "ebjs": "",
+    "utf8bts": ""
   },
   "devDependencies": {
     "vz.test": "",
     "vz.walk": "",
-    "utf8bts": ""
+    "vz.yarr": ""
   },
   "scripts": {
     "test": "node --harmony test"
