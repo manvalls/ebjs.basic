@@ -21,17 +21,17 @@ else{
   
 }
 
-ebjs.define(String,3,function*(buff,data){
+ebjs.define(String,3,function*(data){
   
   var part = stringToPart(data + '');
   
-  yield buff.pack(Number,part.length || part.size || 0);
-  yield buff.write(part);
+  yield this.pack(Number,part.length || part.size || 0);
+  yield this.write(part);
   
-},function*(buff){
+},function*(){
   
-  var size = yield buff.unpack(Number),
-      bytes = yield buff.read(size);
+  var size = yield this.unpack(Number),
+      bytes = yield this.read(size);
   
   return bytesToString(bytes);
   

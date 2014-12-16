@@ -1,13 +1,13 @@
 var ebjs = require('ebjs');
 
-ebjs.define(Boolean,2,function*(buff,data){
+ebjs.define(Boolean,2,function*(data){
   
-  if(data) yield buff.pack(Number,1);
-  else yield buff.pack(Number,0);
+  if(data) yield this.pack(Number,1);
+  else yield this.pack(Number,0);
   
-},function*(buff){
+},function*(){
   
-  if(yield buff.unpack(Number)) return true;
+  if(yield this.unpack(Number)) return true;
   else return false;
   
 });

@@ -191,27 +191,27 @@ var ebjs = require('ebjs'),
   
 }
 
-ebjs.define(Number,1,function*(buff,data){
+ebjs.define(Number,1,function*(data){
   
-  if(data == Infinity) return yield buff.write(Uint8ToBuffer(8));
-  if(isNaN(data)) return yield buff.write(Uint8ToBuffer(9));
+  if(data == Infinity) return yield this.write(Uint8ToBuffer(8));
+  if(isNaN(data)) return yield this.write(Uint8ToBuffer(9));
   
   if(data == toUint32(data)){
     
     if(data == toUint16(data)){
       
       if(data == toUint8(data)){
-        if(data <= 245) return yield buff.write(Uint8ToBuffer(data + 10));
-        yield buff.write(Uint8ToBuffer(0));
-        return yield buff.write(Uint8ToBuffer(data));
+        if(data <= 245) return yield this.write(Uint8ToBuffer(data + 10));
+        yield this.write(Uint8ToBuffer(0));
+        return yield this.write(Uint8ToBuffer(data));
       }
       
-      yield buff.write(Uint8ToBuffer(1));
-      return yield buff.write(Uint16ToBuffer(data));
+      yield this.write(Uint8ToBuffer(1));
+      return yield this.write(Uint16ToBuffer(data));
     }
     
-    yield buff.write(Uint8ToBuffer(2));
-    return yield buff.write(Uint32ToBuffer(data));
+    yield this.write(Uint8ToBuffer(2));
+    return yield this.write(Uint32ToBuffer(data));
   }
   
   if(data == toInt32(data)){
@@ -219,38 +219,38 @@ ebjs.define(Number,1,function*(buff,data){
     if(data == toInt16(data)){
       
       if(data == toInt8(data)){
-        yield buff.write(Uint8ToBuffer(3));
-        return yield buff.write(int8ToBuffer(data));
+        yield this.write(Uint8ToBuffer(3));
+        return yield this.write(int8ToBuffer(data));
       }
       
-      yield buff.write(Uint8ToBuffer(4));
-      return yield buff.write(int16ToBuffer(data));
+      yield this.write(Uint8ToBuffer(4));
+      return yield this.write(int16ToBuffer(data));
     }
     
-    yield buff.write(Uint8ToBuffer(5));
-    return yield buff.write(int32ToBuffer(data));
+    yield this.write(Uint8ToBuffer(5));
+    return yield this.write(int32ToBuffer(data));
   }
   
   if(data == toFloat32(data)){
-    yield buff.write(Uint8ToBuffer(6));
-    return yield buff.write(float32ToBuffer(data));
+    yield this.write(Uint8ToBuffer(6));
+    return yield this.write(float32ToBuffer(data));
   }
   
-  yield buff.write(Uint8ToBuffer(7));
-  return yield buff.write(float64ToBuffer(data));
+  yield this.write(Uint8ToBuffer(7));
+  return yield this.write(float64ToBuffer(data));
   
-},function*(buff){
-  var type = (yield buff.read(1))[0];
+},function*(){
+  var type = (yield this.read(1))[0];
   
   switch(type){
-    case 0: return bytesToUint8(yield buff.read(1));
-    case 1: return bytesToUint16(yield buff.read(2));
-    case 2: return bytesToUint32(yield buff.read(4));
-    case 3: return bytesToInt8(yield buff.read(1));
-    case 4: return bytesToInt16(yield buff.read(2));
-    case 5: return bytesToInt32(yield buff.read(4));
-    case 6: return bytesToFloat32(yield buff.read(4));
-    case 7: return bytesToFloat64(yield buff.read(8));
+    case 0: return bytesToUint8(yield this.read(1));
+    case 1: return bytesToUint16(yield this.read(2));
+    case 2: return bytesToUint32(yield this.read(4));
+    case 3: return bytesToInt8(yield this.read(1));
+    case 4: return bytesToInt16(yield this.read(2));
+    case 5: return bytesToInt32(yield this.read(4));
+    case 6: return bytesToFloat32(yield this.read(4));
+    case 7: return bytesToFloat64(yield this.read(8));
     case 8: return Infinity;
     case 9: return NaN;
     default: return type - 10;

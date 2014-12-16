@@ -1,21 +1,21 @@
 var ebjs = require('ebjs');
 
-ebjs.define(Object,4,function*(buff,data){
+ebjs.define(Object,4,function*(data){
   var keys = Object.keys(data),i;
   
-  yield buff.pack(Number,keys.length);
+  yield this.pack(Number,keys.length);
   
   for(i = 0;i < keys.length;i++){
-    yield buff.pack(String,keys[i]);
-    yield buff.pack(data[keys[i]]);
+    yield this.pack(String,keys[i]);
+    yield this.pack(data[keys[i]]);
   }
   
-},function*(buff){
-  var data = buff.start({}),
-      size = yield buff.unpack(Number),
+},function*(){
+  var data = this.start({}),
+      size = yield this.unpack(Number),
       i;
   
-  for(i = 0;i < size;i++) data[yield buff.unpack(String)] = yield buff.unpack();
+  for(i = 0;i < size;i++) data[yield this.unpack(String)] = yield this.unpack();
   return data;
 });
 
