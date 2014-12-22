@@ -1,4 +1,4 @@
-# ebjs basic [![Build Status][travis-image]][travis-url] [![ES version][es6-image]][es6-url]
+# ebjs basic [![Build Status][travis-image]][travis-url]
 
 Test this package online at http://manvalls.github.io/ebjs.basic
 
@@ -14,6 +14,3 @@ This package provides ebjs definitions for:
 
 [travis-image]: https://travis-ci.org/manvalls/ebjs.basic.svg?branch=master
 [travis-url]: https://travis-ci.org/manvalls/ebjs.basic
-
-[es6-image]: http://img.shields.io/badge/es-6-orange.svg
-[es6-url]: http://kangax.github.io/compat-table/es6/
