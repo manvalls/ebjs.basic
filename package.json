@@ -1,6 +1,6 @@
 {
   "name": "ebjs.basic",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Several basic definitions for ebjs",
   "main": "main.js",
   "dependencies": {
@@ -26,7 +26,6 @@
       "iphone/latest",
       "ipad/latest",
       "android-browser/latest",
-      
       "chrome/canary",
       "firefox/nightly",
       "opera/next"
