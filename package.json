@@ -10,26 +10,14 @@
   "devDependencies": {
     "vz.test": "",
     "vz.walk": "",
-    "vz.yarr": ""
+    "vz.yarr": "",
+    "testling": ""
   },
   "scripts": {
-    "test": "node --harmony test"
+    "test": "testling && node --harmony test"
   },
   "testling": {
-    "files": "test.js",
-    "browsers": [
-      "ie/latest",
-      "chrome/latest",
-      "firefox/latest",
-      "safari/latest",
-      "opera/latest",
-      "iphone/latest",
-      "ipad/latest",
-      "android-browser/latest",
-      "chrome/canary",
-      "firefox/nightly",
-      "opera/next"
-    ]
+    "files": "test.js"
   },
   "repository": {
     "type": "git",

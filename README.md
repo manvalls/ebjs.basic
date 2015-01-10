@@ -1,7 +1,5 @@
 # ebjs basic [![Build Status][travis-image]][travis-url]
 
-Test this package online at http://manvalls.github.io/ebjs.basic
-
 This package provides ebjs definitions for:
 
 - [1\] Number
