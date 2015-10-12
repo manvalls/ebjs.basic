@@ -2,22 +2,8 @@
   "name": "ebjs.basic",
   "version": "2.0.14",
   "description": "Several basic definitions for ebjs",
-  "main": "main.js",
   "dependencies": {
-    "ebjs": "",
-    "utf8bts": ""
-  },
-  "devDependencies": {
-    "vz.test": "",
-    "vz.walk": "",
-    "vz.yarr": "",
-    "testling": ""
-  },
-  "scripts": {
-    "test": "testling && node --harmony test"
-  },
-  "testling": {
-    "files": "test.js"
+
   },
   "repository": {
     "type": "git",
