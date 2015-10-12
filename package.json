@@ -1,10 +1,8 @@
 {
   "name": "ebjs.basic",
-  "version": "2.0.14",
+  "version": "3.0.0",
   "description": "Several basic definitions for ebjs",
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git://github.com/manvalls/ebjs.basic.git"
